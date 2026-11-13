@@ -1,0 +1,21 @@
+From: Sarah Linden <sarah.linden@acmecorp.com>
+To: Araf Abubakar <a.abubakar@acmecorp.com>
+Reply-To: sarah.linden@acmecorp.com
+Return-Path: <sarah.linden@acmecorp.com>
+Subject: Q4 access review - evidence due Friday
+Date: Tue, 10 Nov 2026 09:14:00 -0500
+Message-ID: <a1b2c3d4@acmecorp.com>
+Authentication-Results: mx.acmecorp.com;
+ spf=pass (sender IP is 10.1.0.25) smtp.mailfrom=acmecorp.com;
+ dkim=pass header.d=acmecorp.com;
+ dmarc=pass header.from=acmecorp.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Hi Araf,
+
+Reminder that evidence for the Q4 access review is due Friday.
+The tracking sheet is on the shared drive under Compliance/Q4.
+
+Thanks,
+Sarah

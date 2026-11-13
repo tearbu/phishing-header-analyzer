@@ -1,0 +1,22 @@
+From: PayPal Security Team <alert@paypa1-secure.com>
+To: Araf Abubakar <a.abubakar@acmecorp.com>
+Reply-To: support@paypa1-helpdesk.com
+Return-Path: <bounce@mailer-784.xyz>
+Subject: URGENT: Your account has been limited - verify within 24 hours
+Date: Tue, 10 Nov 2026 03:41:00 +0000
+Message-ID: <zz998877@mailer-784.xyz>
+Authentication-Results: mx.acmecorp.com;
+ spf=fail (sender IP is 198.51.100.77) smtp.mailfrom=paypa1-secure.com;
+ dkim=fail header.d=paypa1-secure.com;
+ dmarc=fail header.from=paypa1-secure.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+
+Dear customer,
+
+We detected unusual activity on your account. Your account has
+been limited until you verify your identity.
+
+Verify now or your account will be permanently closed.
+
+PayPal Security Team
