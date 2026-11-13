@@ -1,10 +1,10 @@
 # Phishing Header Analyzer
 
-A dependency-free Python tool that scores an email's **headers** for phishing indicators — authentication failures, domain misalignment, and brand impersonation — and returns a 0–100 risk score with a verdict and the reasoning behind it.
+A dependency-free Python tool that scores an email's **headers** for phishing indicators (authentication failures, domain misalignment, and brand impersonation) and returns a risk score from 0 to 100 with a verdict and the reasoning behind it.
 
 ## Why it matters
 
-Most phishing triage starts with headers: did SPF/DKIM/DMARC actually pass, does the Reply-To quietly send responses to a different domain, and is the sender domain a lookalike of a brand the display name claims to be? Those checks are quick but tedious to do by hand in an email client. This tool runs them in one pass and shows its work — every point in the score is tied to a specific, listed reason, which is exactly what an analyst needs before escalating or closing a reported phish.
+Most phishing triage starts with headers: did SPF/DKIM/DMARC actually pass, does the Reply-To quietly send responses to a different domain, and is the sender domain a lookalike of a brand the display name claims to be? Those checks are quick but tedious to do by hand in an email client. This tool runs them in one pass and shows its work. Every point in the score is tied to a specific, listed reason, which is what an analyst needs before escalating or closing a reported phish.
 
 ## Checks and scoring
 
@@ -19,13 +19,13 @@ Most phishing triage starts with headers: did SPF/DKIM/DMARC actually pass, does
 | Return-Path domain differs from From domain | +15 |
 | SPF `softfail`, or missing SPF/DKIM/DMARC result | +10 each |
 
-Verdicts: **0–24** Likely legitimate · **25–54** Suspicious · **55–100** Likely phishing. The score is capped at 100.
+Verdicts: **0 to 24** Likely legitimate · **25 to 54** Suspicious · **55 to 100** Likely phishing. The score is capped at 100.
 
 Authentication results are read from the message's `Authentication-Results` header (the values a receiving mail server recorded). Lookalike detection compares the sending domain against a small built-in brand list (PayPal, Microsoft, Apple, Amazon, Google, Netflix, major banks) and normalizes common leetspeak substitutions (`0→o`, `1→l`, …) before matching.
 
 ## How to run
 
-Python 3.9+, standard library only — nothing to install.
+Python 3.9+, standard library only. Nothing to install.
 
 ```bash
 python3 src/analyze_headers.py data/clean-corporate.eml
@@ -71,9 +71,9 @@ Reasons:
 
 The three samples were chosen to exercise the full range:
 
-- **clean-corporate.eml** — internal corporate mail; SPF/DKIM/DMARC all pass, all domains aligned → **0, Likely legitimate**.
-- **obvious-phish.eml** — a "PayPal" alert from a lookalike domain with failed authentication on every mechanism and both alignment checks tripped → **100, Likely phishing** (raw signals total 150, capped at 100).
-- **borderline-vendor.eml** — a marketing email from a third-party sender: SPF softfail, no DKIM, no DMARC result, and an unsubscribe Reply-To on a sibling domain. Nothing proves malice, but nothing vouches for it either → **50, Suspicious**.
+- **clean-corporate.eml**: internal corporate mail. SPF/DKIM/DMARC all pass and all domains are aligned, so it scores **0, Likely legitimate**.
+- **obvious-phish.eml**: a "PayPal" alert from a lookalike domain with failed authentication on every mechanism and both alignment checks tripped. It scores **100, Likely phishing** (raw signals total 150, capped at 100).
+- **borderline-vendor.eml**: a marketing email from a third-party sender: SPF softfail, no DKIM, no DMARC result, and an unsubscribe Reply-To on a sibling domain. Nothing proves malice, but nothing vouches for it either, so it scores **50, Suspicious**.
 
 ## Files
 
@@ -86,7 +86,7 @@ data/borderline-vendor.eml sample: weakly-authenticated marketing mail
 
 ## Honest limitations
 
-- **It trusts the `Authentication-Results` header already in the message** — it does not perform live SPF/DKIM/DMARC lookups, so a message that was never stamped by a receiving server scores "missing result" points even if it is genuine.
+- **It trusts the `Authentication-Results` header already in the message.** It does not perform live SPF/DKIM/DMARC lookups, so a message that was never stamped by a receiving server scores "missing result" points even if it is genuine.
 - **Headers only.** Links, attachments, and body content (urgency language, credential-harvest forms) are out of scope and often carry the strongest phishing signals.
 - **Alignment is judged on the registrable domain** using a simplified last-two-labels rule, which is wrong for domains under multi-part public suffixes (e.g. `co.uk`) and doesn't evaluate DMARC organizational-domain policy nuances.
 - **The brand list is small and the weights are judgment calls**, not trained or tuned against a labeled corpus. Legitimate bulk senders frequently trip the Return-Path and Reply-To checks.
@@ -94,4 +94,4 @@ data/borderline-vendor.eml sample: weakly-authenticated marketing mail
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Copyright (c) 2026 Araf Abubakar.
+MIT. See [LICENSE](LICENSE). Copyright (c) 2026 Araf Abubakar.
